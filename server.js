@@ -47,8 +47,19 @@ app.post("/usuarios",(req, res) =>{
     res.send(201).send(novoUsuario) //Retorna o novo usuário
 })
 
+//Atualizar usuario
+app.put("/usuarios/:id",(req,res)=>{
+    const id= parseInt(req.params.id);
+    const novoUsuario = req.body; 
+    const index = usuarios.findIndex(usuario => usuario.id == id); //Procura pela lista toda se tem um id igual         
+    
+    if(index != null){
+        usuarios[index] = novoUsuario;
+    }else{
+        res.status(404).send("Usuário não encontrado!")
+    }
+})
+
 app.listen(port,()=>{
     console.log("Servidor rodando em http://localhost:3000")
 })
-
-  
