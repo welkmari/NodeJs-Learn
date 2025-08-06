@@ -48,17 +48,32 @@ app.post("/usuarios",(req, res) =>{
 })
 
 //Atualizar usuario
-app.put("/usuarios/:id",(req,res)=>{
+app.put("/usuarios/:id", (req,res)=>{
     const id= parseInt(req.params.id);
     const novoUsuario = req.body; 
     const index = usuarios.findIndex(usuario => usuario.id == id); //Procura pela lista toda se tem um id igual         
     
     if(index != null){
         usuarios[index] = novoUsuario;
+        res.status(204).send(novoUsuario);
     }else{
         res.status(404).send("Usuário não encontrado!")
     }
 })
+
+//Deletar usuário
+app.delete("/usuario/:id" , (req, res) =>{
+    const id  =parseInt(req.params.id);
+    const index = usuarios.findIndex(usuario => usuario.id == id); 
+    
+    if(index != null){
+        usuarios.splice(index,1);
+        res.status(204).send("Usuário com id:" + id + "Removido com sucesso!")
+    }else{
+        res.status(404).send("Usuário não encontrado")
+    }
+    
+}) 
 
 app.listen(port,()=>{
     console.log("Servidor rodando em http://localhost:3000")
