@@ -43,6 +43,8 @@ app.post("/usuarios",(req, res) =>{
     //body - corpo da requisição
     const novoUsuario = req.body;
     novoUsuario.Id = usuarios.length +1;
+    usuarios.push(novoUsuario); //Adiciona um novo id na lista de usuários
+    res.send(201).send(novoUsuario) //Retorna o novo usuário
 })
 
 app.listen(port,()=>{
