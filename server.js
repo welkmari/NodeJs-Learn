@@ -4,6 +4,9 @@ const app = express(); //Criar o servidor
 
 const port = 3000; //Variavel para armazenar a porta
 
+//Para Permitir receber json nas requisições
+app.use(express.json());
+
 const usuarios = [
     {"id" : 1 ,"nome": "Maria", "idade": 18, "senha":"12345"},
     {"id" : 2, "nome":"Admin", "idade" : 18, "senha" : "123"}
@@ -35,6 +38,12 @@ app.get("/usuarios/:id",(req,res) =>{
     }
 })
 
+//Criar um Usuário
+app.post("/usuarios",(req, res) =>{
+    //body - corpo da requisição
+    const novoUsuario = req.body;
+    novoUsuario.Id = usuarios.length +1;
+})
 
 app.listen(port,()=>{
     console.log("Servidor rodando em http://localhost:3000")
