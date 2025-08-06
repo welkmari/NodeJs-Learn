@@ -22,6 +22,20 @@ app.get("/usuarios" , (req,res) =>{
     res.send(usuarios);
 })
 
+//buscar um usuário -> get by id
+app.get("/usuarios/:id",(req,res) =>{
+    const id = parseInt(req.params.id);
+
+    const usuario = usuarios.find(usuario => usuario.id == id);
+
+    if(usuario != null){
+        res.send(usuario)
+    }else{
+        res.status(404).send("Usuário não encontrado!")
+    }
+})
+
+
 app.listen(port,()=>{
     console.log("Servidor rodando em http://localhost:3000")
 })
